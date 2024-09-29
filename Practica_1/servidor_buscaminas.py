@@ -29,12 +29,13 @@ class Tablero:
                 self.tablero[x][y] = 'M'
                 #print(f"Mina colocada en: {x}, {y}")
                 minas_colocadas += 1
-        self.imprimir_tablero()
-    def imprimir_tablero(self):
-        for i in range(self.filas):
-            for j in range(self.columnas):
-                print(self.tablero[i][j], end=" ")
-            print()
+        #self.imprimir_tablero()
+        
+    #def imprimir_tablero(self):
+    #    for i in range(self.filas):
+    #        for j in range(self.columnas):
+    #            print(self.tablero[i][j], end=" ")
+    #        print()
 
         
 
@@ -106,7 +107,7 @@ def manejar_cliente(conn, addr):
                                 # Esperar a que el cliente reciba la mina
                                 conn.recv(buffer_size)
                     #Esperar a que el cliente reciba las minas
-                    conn.recv(buffer_size)
+                    #conn.recv(buffer_size)
                     conn.send(str(tablero.duracion).encode())            
                     break
                 else:
