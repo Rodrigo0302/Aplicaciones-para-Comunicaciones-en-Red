@@ -93,6 +93,8 @@ def iniciar_cliente(ip_servidor, puerto_servidor):
                     imprimir_tablero(tablero_local, filas, columnas)
                     cierre = cliente.send("".encode())
                     break
+            elif data == "Casilla ya descubierta.":
+                print(data)
             else:
                 print("Respuesta no reconocida del servidor.")
 

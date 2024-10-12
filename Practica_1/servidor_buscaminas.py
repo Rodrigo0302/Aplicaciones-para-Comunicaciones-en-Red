@@ -17,6 +17,7 @@ class Tablero:
         self.colocar_minas()
         self.iniciar_tiempo()
         self.casillas_descubiertas = 0
+        self.casillas_descubiertasTuplas = []
 
     def colocar_minas(self):
         minas_colocadas = 0
@@ -89,7 +90,14 @@ def manejar_cliente(conn, addr):
                     respuesta = "Coordenadas fuera de rango."
                     conn.send(respuesta.encode())
                     continue
+                
+                #Verificar si la casilla ya ha sido descubierta
+                if (x,y) in tablero.casillas_descubiertasTuplas:
+                    respuesta = "Casilla ya descubierta."
+                    conn.send(respuesta.encode())
+                    continue
 
+                #verificar si hay mina
                 if tablero.tablero[x][y] == 'M':
                     # Perdiste
                     tablero.finalizar_tiempo()
@@ -114,6 +122,9 @@ def manejar_cliente(conn, addr):
                     tablero.casillas_descubiertas += 1
                     respuesta = "Casilla libre."
                     conn.send(respuesta.encode())
+
+                    # Ingresar casilla descubierta
+                    tablero.casillas_descubiertasTuplas.append((x,y))
 
                     #print(tablero.casillas_descubiertas)
                     #print(filas * columnas - minas)
@@ -150,3 +161,4 @@ if __name__ == "__main__":
     ip_servidor = input("Ingrese la IP del servidor: ")
     puerto_servidor = int(input("Ingrese el puerto del servidor: "))
     iniciar_servidor(ip_servidor, puerto_servidor)
+   
