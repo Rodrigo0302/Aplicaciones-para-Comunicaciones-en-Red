@@ -1,3 +1,6 @@
+#Flores Estopier Rodrigo
+#Aplicaciones para comunicaciones en red 6CV1
+#Fecha de creacion: 28/09/2024
 import socket
 
 buffer_size = 1024
@@ -43,9 +46,10 @@ def iniciar_cliente(ip_servidor, puerto_servidor):
             print("Error al iniciar el juego.")
             cliente.close() 
             return
-        print("------------------------------")
+        
         # Bucle del juego
         while True:
+            print("------------------------------")
             # Ingresar coordenadas
             try:
                 x = int(input("Ingrese la coordenada X: "))
@@ -58,7 +62,7 @@ def iniciar_cliente(ip_servidor, puerto_servidor):
             cliente.send(mensaje_coordenadas.encode())
 
             # Recibir respuesta del servidor
-            data = cliente.recv(1024).decode()
+            data = cliente.recv(buffer_size).decode()
 
             if data == "Coordenadas fuera de rango.":
                 print(data)
@@ -73,7 +77,7 @@ def iniciar_cliente(ip_servidor, puerto_servidor):
                         mina_x, mina_y = mina.split(",")
                         tablero_local[int(mina_x)][int(mina_y)] = 'M'
                 #Enviar confirmación de recepción de minas
-                cierre = cliente.send("R".encode())
+                #cierre = cliente.send("R".encode())
                 #Recibir duración del juego
                 data = cliente.recv(buffer_size).decode()
                 imprimir_tablero(tablero_local, filas, columnas)
